@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Highscores index{% endblock %}
+
+{% block body %}
+    <h1>Highscores index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Ids</th>
+                <th>Score</th>
+                <th>IdUser</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for highscore in highscores %}
+            <tr>
+                <td>{{ highscore.ids }}</td>
+                <td>{{ highscore.score }}</td>
+                <td>{{ highscore.idUser }}</td>
+                <td>
+                    <a href="{{ path('app_highscores_show', {'ids': highscore.ids}) }}">show</a>
+                    <a href="{{ path('app_highscores_edit', {'ids': highscore.ids}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_highscores_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cartefidelite index{% endblock %}
+
+{% block body %}
+    <h1>Cartefidelite index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdCf</th>
+                <th>Pointmerci</th>
+                <th>Dateexpiration</th>
+                <th>IdUser</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for cartefidelite in cartefidelites %}
+            <tr>
+                <td>{{ cartefidelite.idCf }}</td>
+                <td>{{ cartefidelite.pointmerci }}</td>
+                <td>{{ cartefidelite.dateexpiration ? cartefidelite.dateexpiration|date('Y-m-d') : '' }}</td>
+                <td>{{ cartefidelite.idUser }}</td>
+                <td>
+                    <a href="{{ path('app_cartefidelite_show', {'idCf': cartefidelite.idCf}) }}">show</a>
+                    <a href="{{ path('app_cartefidelite_edit', {'idCf': cartefidelite.idCf}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_cartefidelite_new') }}">Create new</a>
+{% endblock %}

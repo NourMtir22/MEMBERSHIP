@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Highscores{% endblock %}
+
+{% block body %}
+    <h1>Edit Highscores</h1>
+
+    {{ include('highscores/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_highscores_index') }}">back to list</a>
+
+    {{ include('highscores/_delete_form.html.twig') }}
+{% endblock %}
