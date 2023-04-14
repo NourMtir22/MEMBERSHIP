@@ -18,10 +18,10 @@
         <tbody>
         {% for cartefidelite in cartefidelites %}
             <tr>
-                <td>{{ cartefidelite.idCf }}</td>
-                <td>{{ cartefidelite.pointmerci }}</td>
-                <td>{{ cartefidelite.dateexpiration ? cartefidelite.dateexpiration|date('Y-m-d') : '' }}</td>
-                <td>{{ cartefidelite.idUser }}</td>
+                <td>{{ cartefidelite.getIdCf }}</td>
+                <td>{{ cartefidelite.getPointmerci }}</td>
+                <td>{{ cartefidelite.getDateexpiration ? cartefidelite.dateexpiration|date('Y-m-d') : '' }}</td>
+                <td>{{ cartefidelite.getIdUser }}</td>
                 <td>
                     <a href="{{ path('app_cartefidelite_show', {'idCf': cartefidelite.idCf}) }}">show</a>
                     <a href="{{ path('app_cartefidelite_edit', {'idCf': cartefidelite.idCf}) }}">edit</a>

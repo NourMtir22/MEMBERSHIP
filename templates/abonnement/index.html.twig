@@ -20,12 +20,14 @@
         <tbody>
         {% for abonnement in abonnements %}
             <tr>
-                <td>{{ abonnement.ida }}</td>
-                <td>{{ abonnement.type }}</td>
-                <td>{{ abonnement.prix }}</td>
-                <td>{{ abonnement.dateachat ? abonnement.dateachat|date('Y-m-d') : '' }}</td>
-                <td>{{ abonnement.dateexpiration ? abonnement.dateexpiration|date('Y-m-d') : '' }}</td>
-                <td>{{ abonnement.idUser }}</td>
+                <td>{{ abonnement.getIda() }}</td>
+
+                <td>{{ abonnement.getType() }}</td>
+                <td>{{ abonnement.getPrix() }}</td>
+                <td>{{ abonnement.getDateachat() ? abonnement.getDateachat()|date('Y-m-d') : '' }}</td>
+                <td>{{ abonnement.getDateexpiration() ? abonnement.getDateexpiration()|date('Y-m-d') : '' }}</td>
+                <td>{{ abonnement.getIdUser() }}</td>
+
                 <td>
                     <a href="{{ path('app_abonnement_show', {'ida': abonnement.ida}) }}">show</a>
                     <a href="{{ path('app_abonnement_edit', {'ida': abonnement.ida}) }}">edit</a>

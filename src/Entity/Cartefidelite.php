@@ -35,6 +35,7 @@ class Cartefidelite
      */
     private $dateexpiration;
 
+
     /**
      * @var int|null
      *
@@ -50,7 +51,55 @@ class Cartefidelite
      *   @ORM\JoinColumn(name="idA", referencedColumnName="idA")
      * })
      */
-    private $ida;
+    private $abonnement;
 
+    public function getAbonnement(): ?Abonnement
+    {
+        return $this->abonnement;
+    }
 
+    public function setAbonnement(?Abonnement $abonnement): self
+    {
+        $this->abonnement = $abonnement;
+        return $this;
+    }
+        
+    public function getIdCf(): ?int
+    {
+        return $this->idCf;
+    }
+
+    public function getPointmerci(): ?string
+    {
+        return $this->pointmerci;
+    }
+
+    public function getDateexpiration(): ?\DateTime
+    {
+        return $this->dateexpiration;
+    }
+    public function getIdUser(): ?int
+    {
+        return $this->idUser;
+    }
+    public function setIdCf(int $idCf): self
+    {
+        $this->idcf = $idCf;
+        return $this;
+    }
+    public function setPointmerci(string $pointmerci): self
+    {
+        $this->pointmerci = $pointmerci;
+        return $this;
+    }
+    public function setDateexpiration(\DateTime $dateexpiration): self
+    {
+        $this->dateexpiration = $dateexpiration;
+        return $this;
+    }
+    public function setIdUser(?int $idUser): self
+    {
+        $this->idUser = $idUser;
+        return $this;
+    }
 }
