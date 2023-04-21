@@ -28,6 +28,17 @@ class AbonnementController extends AbstractController
             'abonnements' => $abonnements,
         ]);
     }
+    #[Route('/', name: 'app_abonnement_indexClient', methods: ['GET'])]
+    public function indexClient(EntityManagerInterface $entityManager): Response
+    {
+        $abonnements = $entityManager
+            ->getRepository(Abonnement::class)
+            ->findAll();
+
+        return $this->render('indexClient.html.twig', [
+            'abonnements' => $abonnements,
+        ]);
+    }
 
     #[Route('/new', name: 'app_abonnement_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -63,6 +74,45 @@ class AbonnementController extends AbstractController
         }
     
         return $this->renderForm('abonnement/new.html.twig', [
+            'abonnement' => $abonnement,
+            'form' => $form,
+        ]);
+    }
+    
+    #[Route('/newC', name: 'app_abonnement_newC', methods: ['GET', 'POST'])]
+    public function newC(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $abonnement = new Abonnement();
+        $form = $this->createForm(AbonnementType::class, $abonnement);
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($abonnement);
+    
+            
+            
+    
+            $entityManager->flush();
+    
+            $abonnement->setDateachat(new \DateTime());
+
+            // Create a new Cartefidelite for the new Abonnement
+            $cartefidelite = new Cartefidelite();
+            $cartefidelite->setAbonnement($abonnement);
+    
+            // Set the required properties for Cartefidelite object
+            $cartefidelite->setPointmerci("0"); // You can set a default value or calculate it based on your business logic
+            $cartefidelite->setDateexpiration($abonnement->getDateexpiration());
+          
+    
+            // Persist and flush the Cartefidelite object
+            $entityManager->persist($cartefidelite);
+            $entityManager->flush();
+    
+            return $this->redirectToRoute('app_abonnement_newC', [], Response::HTTP_SEE_OTHER);
+        }
+    
+        return $this->renderForm('abonnement/newC.html.twig', [
             'abonnement' => $abonnement,
             'form' => $form,
         ]);

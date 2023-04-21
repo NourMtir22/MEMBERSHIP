@@ -59,10 +59,14 @@
                     <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li>
                     <li><a class="nav-link scrollto" href="#team">Team</a></li>
                     <li><a class="nav-link scrollto" href="#pricing">Pricing</a></li>
-                    <li class="dropdown"><a href="#"><span>car mangement</span> <i class="bi bi-chevron-down"></i></a>
+                    <li class="dropdown"><a href="#"><span>Membership</span> <i class="bi bi-chevron-down"></i></a>
                         <ul>
-                            <li><a href="{{ path('app_voitureaffichClient') }}">cars list</a></li>
-                            <li><a href="{{ path('app_reservationaffichefront') }}">Reservation list</a></li>
+                             <li>   <a href="{{ path('app_abonnement_newC') }}">Buy New membership</a></li>
+                             <li>   <a href="{{ path('app_abonnement_newC') }}">Earn Tokens</a></li>
+                            
+                            <li><a href="{{ path('app_highscores_show', {ids: highscore.ids}) }}">show</a>   </li>
+
+                             
 
                         </ul>
                     </li>
