@@ -27,7 +27,7 @@ class HighscoresController extends AbstractController
 
    
 
-    #[Route('/{ids}', name: 'app_highscores_show', methods: ['GET'])]
+    #[Route( '/',name: 'app_highscores_show', methods: ['GET'])]
     public function show(Highscores $highscore): Response
     {
         return $this->render('highscores/show.html.twig', [
