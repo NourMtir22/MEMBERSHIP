@@ -13,7 +13,7 @@ class HighscoresType extends AbstractType
     {
         $builder
             ->add('score')
-            ->add('idUser')
+            
         ;
     }
 

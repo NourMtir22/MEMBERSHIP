@@ -73,7 +73,7 @@ private $type;
      *
      * @ORM\Column(name="id_user", type="integer", nullable=true)
      */
-    private $idUser;
+    public $idUser;
 
     /**
      * Validates the Abonnement entity.
@@ -135,10 +135,7 @@ private $type;
         return $this->dateexpiration;
     }
 
-    public function getIdUser(): ?int
-    {
-        return $this->idUser;
-    }
+    
     public function setIda(int $ida): self
     {
         $this->ida = $ida;
@@ -169,10 +166,6 @@ private $type;
         return $this;
     }
 
-    public function setIdUser(?int $idUser): self
-    {
-        $this->idUser = $idUser;
-        return $this;
-    }
+    
 
 }

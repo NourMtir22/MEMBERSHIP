@@ -25,7 +25,7 @@ class AbonnementType extends AbstractType
             ->add('prix')
             ->add('dateachat')
             ->add('dateexpiration')
-            ->add('idUser')
+            
         ;
     }
 

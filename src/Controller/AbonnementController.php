@@ -53,7 +53,7 @@ class AbonnementController extends AbstractController
             // Set the required properties for Cartefidelite object
             $cartefidelite->setPointmerci("0"); // You can set a default value or calculate it based on your business logic
             $cartefidelite->setDateexpiration($abonnement->getDateexpiration());
-            $cartefidelite->setIdUser($abonnement->getIdUser());
+          
     
             // Persist and flush the Cartefidelite object
             $entityManager->persist($cartefidelite);
