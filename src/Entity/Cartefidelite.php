@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Cartefidelite
  *
- * @ORM\Table(name="cartefidelite", indexes={@ORM\Index(name="idA", columns={"idA"})})
+ * @ORM\Table(name="cartefidelite")
  * @ORM\Entity
  */
 class Cartefidelite
@@ -35,21 +35,16 @@ class Cartefidelite
      */
     private $dateexpiration;
 
-
     /**
      * @var int|null
      *
      * @ORM\Column(name="id_user", type="integer", nullable=true)
      */
-    private $idUser;
+    public $idUser;
 
     /**
-     * @var \Abonnement
-     *
-     * @ORM\ManyToOne(targetEntity="Abonnement")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idA", referencedColumnName="idA")
-     * })
+     * @ORM\OneToOne(targetEntity="Abonnement", inversedBy="cartefidelite", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="idA", referencedColumnName="idA")
      */
     private $abonnement;
 
@@ -63,7 +58,7 @@ class Cartefidelite
         $this->abonnement = $abonnement;
         return $this;
     }
-        
+
     public function getIdCf(): ?int
     {
         return $this->idCf;
@@ -78,28 +73,19 @@ class Cartefidelite
     {
         return $this->dateexpiration;
     }
-    public function getIdUser(): ?int
-    {
-        return $this->idUser;
-    }
-    public function setIdCf(int $idCf): self
-    {
-        $this->idcf = $idCf;
-        return $this;
-    }
+
+    
     public function setPointmerci(string $pointmerci): self
     {
         $this->pointmerci = $pointmerci;
         return $this;
     }
+
     public function setDateexpiration(\DateTime $dateexpiration): self
     {
         $this->dateexpiration = $dateexpiration;
         return $this;
     }
-    public function setIdUser(?int $idUser): self
-    {
-        $this->idUser = $idUser;
-        return $this;
-    }
+
+    
 }

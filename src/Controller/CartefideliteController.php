@@ -25,60 +25,34 @@ class CartefideliteController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_cartefidelite_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $cartefidelite = new Cartefidelite();
-        $form = $this->createForm(CartefideliteType::class, $cartefidelite);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($cartefidelite);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_cartefidelite_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('cartefidelite/new.html.twig', [
-            'cartefidelite' => $cartefidelite,
-            'form' => $form,
-        ]);
-    }
+    
 
     #[Route('/{idCf}', name: 'app_cartefidelite_show', methods: ['GET'])]
-    public function show(Cartefidelite $cartefidelite): Response
-    {
-        return $this->render('cartefidelite/show.html.twig', [
-            'cartefidelite' => $cartefidelite,
-        ]);
+public function show(Cartefidelite $cartefidelite): Response
+{
+    return $this->render('cartefidelite/show.html.twig', [
+        'cartefidelite' => $cartefidelite,
+    ]);
+}
+
+
+#[Route('/{idCf}/edit', name: 'app_cartefidelite_edit', methods: ['GET', 'POST'])]
+public function edit(Request $request, Cartefidelite $cartefidelite, EntityManagerInterface $entityManager): Response
+{
+    $form = $this->createForm(CartefideliteType::class, $cartefidelite);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_cartefidelite_show', ['idCf' => $cartefidelite->getIdCf()], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/{idCf}/edit', name: 'app_cartefidelite_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Cartefidelite $cartefidelite, EntityManagerInterface $entityManager): Response
-    {
-        $form = $this->createForm(CartefideliteType::class, $cartefidelite);
-        $form->handleRequest($request);
+    return $this->renderForm('cartefidelite/edit.html.twig', [
+        'cartefidelite' => $cartefidelite,
+        'form' => $form,
+    ]);
+}
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_cartefidelite_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('cartefidelite/edit.html.twig', [
-            'cartefidelite' => $cartefidelite,
-            'form' => $form,
-        ]);
-    }
-
-    #[Route('/{idCf}', name: 'app_cartefidelite_delete', methods: ['POST'])]
-    public function delete(Request $request, Cartefidelite $cartefidelite, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$cartefidelite->getIdCf(), $request->request->get('_token'))) {
-            $entityManager->remove($cartefidelite);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('app_cartefidelite_index', [], Response::HTTP_SEE_OTHER);
-    }
+   
 }

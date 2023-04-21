@@ -40,10 +40,7 @@
                             <!-- Default Table -->
     <table class="table">
         <tbody>
-            <tr>
-                <th>Ida</th>
-                <td>{{ abonnement.ida }}</td>
-            </tr>
+           
             <tr>
                 <th>Type</th>
                 <td>{{ abonnement.type }}</td>
@@ -60,7 +57,7 @@
                 <th>Dateexpiration</th>
                 <td>{{ abonnement.dateexpiration ? abonnement.dateexpiration|date('Y-m-d') : '' }}</td>
             </tr>
-             <tr>
+             
              <th><center>
          <a href="{{ path('app_abonnement_index') }}">back to list</a>
 

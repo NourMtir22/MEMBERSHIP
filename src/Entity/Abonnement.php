@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 // Add the use statement for the Range constraint
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use App\Entity\Cartefidelite;
 
 
 /**
@@ -89,7 +90,26 @@ private $type;
                 ->addViolation();
         }
     }
+/**
+     * @ORM\OneToOne(targetEntity="Cartefidelite", mappedBy="abonnement", cascade={"persist", "remove"})
+     */
+    private $cartefidelite;
 
+    // Add getter and setter methods for $cartefidelite
+    public function getCartefidelite(): ?Cartefidelite
+    {
+        return $this->cartefidelite;
+    }
+
+    public function setCartefidelite(?Cartefidelite $cartefidelite): self
+    {
+        $this->cartefidelite = $cartefidelite;
+        // Set the owning side of the relation if necessary
+        if ($cartefidelite !== null && $cartefidelite->getAbonnement() !== $this) {
+            $cartefidelite->setAbonnement($this);
+        }
+        return $this;
+    }
     public function getIda(): ?int
     {
         return $this->ida;

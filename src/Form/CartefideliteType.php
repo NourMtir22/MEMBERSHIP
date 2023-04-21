@@ -14,8 +14,7 @@ class CartefideliteType extends AbstractType
         $builder
             ->add('pointmerci')
             ->add('dateexpiration')
-            ->add('idUser')
-            ->add('ida')
+           
         ;
     }
 

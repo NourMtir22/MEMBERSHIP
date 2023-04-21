@@ -60,12 +60,14 @@
                 <td>
                     <a href="{{ path('app_cartefidelite_show', {'idCf': cartefidelite.idCf}) }}">show</a>
                     <a href="{{ path('app_cartefidelite_edit', {'idCf': cartefidelite.idCf}) }}">edit</a>
-                     <a href="{{ path('app_cartefidelite_new') }}">Create new</a>
+                    
 
                 </td>
             </tr>
         
         {% endfor %}
+                    <a href="{{ path('app_abonnement_new') }}">Create new</a>
+
         </tbody>
     </table>
 

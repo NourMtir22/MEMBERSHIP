@@ -63,12 +63,13 @@
                 <td>
                     <a href="{{ path('app_abonnement_show', {'ida': abonnement.ida}) }}">show</a>
                     <a href="{{ path('app_abonnement_edit', {'ida': abonnement.ida}) }}">edit</a>
-                    <a href="{{ path('app_abonnement_new') }}">Create new</a>
-                
                 </td>
+
             </tr>
         
         {% endfor %}
+                    <a href="{{ path('app_abonnement_new') }}">Create new</a>
+
         </tbody>
     </table>
 
