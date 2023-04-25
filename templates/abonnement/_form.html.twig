@@ -1,4 +1,39 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
     <button class="btn">{{ button_label|default('Buy Membership') }}</button>
+    
 {{ form_end(form) }}
+
+{# Add this to the head of your template or in a separate .js file #}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let typeDropdown = document.getElementById("abonnement_type");
+
+        if (typeDropdown) {
+            typeDropdown.addEventListener("change", updatePrice);
+        }
+    });
+
+    function updatePrice() {
+        let typeDropdown = document.getElementById("abonnement_type");
+        let priceInput = document.getElementById("abonnement_prix");
+        let selectedType = typeDropdown.value;
+
+        let price;
+        switch (selectedType) {
+            case "Gold":
+                price = 1080;
+                break;
+            case "Bronze":
+                price = 720;
+                break;
+            case "Platinum":
+                price = 400;
+                break;
+            default:
+                price = 0;
+        }
+
+        priceInput.value = price;
+    }
+</script>

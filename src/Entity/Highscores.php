@@ -35,5 +35,36 @@ class Highscores
      */
     private $idUser;
 
+    public function getIds(): ?int
+    {
+        return $this->ids;
+    }
+
+    public function getScore(): ?int
+    {
+        return $this->score;
+    }
+
+    public function setScore(int $score): self
+    {
+        $this->score = $score;
+        return $this;
+    }
+
+    public function getIdUser(): ?int
+    {
+        return $this->idUser;
+    }
+
+    public function setIdUser(?int $idUser): self
+    {
+        $this->idUser = $idUser;
+        return $this;
+    }
+    public function setIds(?int $ids): self
+    {
+        $this->ids = $ids;
+        return $this;
+    }
 
 }

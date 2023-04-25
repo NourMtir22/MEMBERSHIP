@@ -38,6 +38,14 @@
     </section><!-- End Portfolio Details Section -->
 
     </main><!-- End #main -->
+    {# Check if the "success" query parameter is present and equals "true" #}
+{% if app.request.query.get('success') == '1' %}
+<script>
+    // Display an alert with a message
+    alert('Your membership has been created successfully!');
+</script>
+{% endif %}
+
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 {% endblock %}

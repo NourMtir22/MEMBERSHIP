@@ -93,7 +93,7 @@ class AbonnementController extends AbstractController
             
     
             $entityManager->flush();
-    
+         
             $abonnement->setDateachat(new \DateTime());
 
             // Create a new Cartefidelite for the new Abonnement
@@ -108,8 +108,11 @@ class AbonnementController extends AbstractController
             // Persist and flush the Cartefidelite object
             $entityManager->persist($cartefidelite);
             $entityManager->flush();
-    
-            return $this->redirectToRoute('app_abonnement_newC', [], Response::HTTP_SEE_OTHER);
+
+            // Add a query parameter called "success" to the URL when redirecting after a successful creation
+                 return $this->redirectToRoute('app_abonnement_newC', ['success' => true], Response::HTTP_SEE_OTHER);
+
+           
         }
     
         return $this->renderForm('abonnement/newC.html.twig', [

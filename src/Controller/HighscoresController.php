@@ -20,14 +20,14 @@ class HighscoresController extends AbstractController
             ->getRepository(Highscores::class)
             ->findAll();
 
-        return $this->render('indexClient.html.twig', [
+        return $this->render('highscores/index.html.twig', [
             'highscores' => $highscores,
         ]);
     }
 
    
 
-    #[Route( '/',name: 'app_highscores_show', methods: ['GET'])]
+    #[Route( '/{idS}',name: 'app_highscores_show', methods: ['GET'])]
     public function show(Highscores $highscore): Response
     {
         return $this->render('highscores/show.html.twig', [
