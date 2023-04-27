@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+//for displaying the high scores list sorted by order 
 #[Route('/highscores')]
 class HighscoresController extends AbstractController
 {
@@ -26,7 +27,7 @@ class HighscoresController extends AbstractController
             'order' => $order,
         ]);
     }
-
+//for showing a specific high score
     #[Route('/{idS}', name: 'app_highscores_show', methods: ['GET'])]
     public function show(Highscores $highscore): Response
     {
@@ -34,4 +35,10 @@ class HighscoresController extends AbstractController
             'highscore' => $highscore,
         ]);
     }
+
+
+
+
+   
+
 }

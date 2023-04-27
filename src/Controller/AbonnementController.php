@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Cartefidelite;
+use App\Entity\Highscores;
+
 
 use App\Entity\Abonnement;
 use App\Form\AbonnementType;
@@ -86,6 +88,16 @@ class AbonnementController extends AbstractController
         $form = $this->createForm(AbonnementType::class, $abonnement);
         $form->handleRequest($request);
     
+        // Add the logic to fetch the highest score
+        $highscores = $entityManager
+            ->getRepository(Highscores::class)
+            ->createQueryBuilder('h')
+            ->select('h')
+            ->orderBy('h.score', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($abonnement);
     
@@ -118,9 +130,9 @@ class AbonnementController extends AbstractController
         return $this->renderForm('abonnement/newC.html.twig', [
             'abonnement' => $abonnement,
             'form' => $form,
+            'highscores' => $highscores, // Pass the 'highscore' variable to the template
         ]);
     }
-    
 
 
     #[Route('/{ida}', name: 'app_abonnement_show', methods: ['GET'])]
