@@ -24,13 +24,17 @@
 <thead>
             <tr>
                
-                <th>Your balance</th>
-             
+                <th>Your balance history</th>
+               <div>
+        <a href="{{ path('app_highscores_indexClient', {'order': 'asc'}) }}">Sort by Lowest</a>
+        <a href="{{ path('app_highscores_indexClient', {'order': 'desc'}) }}">Sort by Highest</a>
+    </div>
                
             </tr>
         </thead>
         <tbody>
         {% for highscore in highscores %}
+      
             <tr>
                 
                 <td>{{ highscore.score }}</td>

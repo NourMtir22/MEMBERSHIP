@@ -1,0 +1,4 @@
+api_highscores_create:
+    path: /api/highscores
+    methods: [POST]
+    controller: 'App\Controller\Api\HighscoresApiController::create'

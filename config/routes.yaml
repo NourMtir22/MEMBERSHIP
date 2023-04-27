@@ -1,3 +1,7 @@
 controllers:
     resource: ../src/Controller/
     type: attribute
+api_highscores_create:
+    path: /api/highscores
+    controller: App\Controller\Api\HighscoresApiController::create
+    methods: [POST]
