@@ -150,8 +150,24 @@ public function newC(Request $request, EntityManagerInterface $entityManager, Ma
     ->from('symfonycopte822@gmail.com')
     ->to('accessoriesnova9300@gmail.com')
     ->subject('Your new membership')
-    ->html('<p>Thank you for purchasing a new membership!</p><p>Your membership details are as follows:</p><ul><li>Start date: ' . $abonnement->getDateachat()->format('Y-m-d') . '</li><li>Expiration date: ' . $abonnement->getDateexpiration()->format('Y-m-d') . '</li></ul>');
+    ->html('
+    <div style="background-color: #f2f2f2; padding: 20px; font-family: Arial, sans-serif; font-size: 14px; line-height: 1.5;">
+        <img src="cid:membership_card" alt="Membership card" style="display: block; margin: 0 auto; max-width: 100%; height: auto;">
+        <h2 style="margin-top: 0;">Thank you for purchasing a new membership!</h2>
+        <p>Your membership details are as follows:</p>
+        <ul style="list-style-type: none; margin: 0; padding: 0;">
+            <li><strong>Type:</strong> ' . $abonnement->getType() . '</li>
+            <li><strong>Price:</strong> ' . $abonnement->getPrix() . '</li>
+            <li><strong>Start date:</strong> ' . $abonnement->getDateachat()->format('Y-m-d') . '</li>
+            <li><strong>Expiration date:</strong> ' . $abonnement->getDateexpiration()->format('Y-m-d') . '</li>
+        </ul>
+    </div>
+')
+// Attach the membership card image to the email
+->embedFromPath('C:\xampp\htdocs\membership\resources\taswira.jpg', 'membership_card');
 
+
+    
     $transport = new GmailSmtpTransport('symfonycopte822@gmail.com', 'cdwgdrevbdoupxhn');
             $mailer = new Mailer($transport);
     $mailer->send($email);

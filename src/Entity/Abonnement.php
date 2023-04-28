@@ -43,7 +43,7 @@ private $type;
      * @ORM\Column(name="prix", type="integer", nullable=false)
      * @Assert\Range(
      *      min = 0,
-     *      max = 1070,
+     *      max = 2000,
      *      notInRangeMessage = "The prix must be between {{ min }} and {{ max }}.",
      * )
      * * @Assert\NotBlank(message="Prix cannot be empty.")

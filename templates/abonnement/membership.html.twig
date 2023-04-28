@@ -1,0 +1,17 @@
+{% block subject %}Your new membership{% endblock %}
+
+{% block body %}
+  <div style="background-color: #f2f2f2; padding: 20px; font-family: Arial, sans-serif; font-size: 14px; line-height: 1.5;">
+    <h2 style="margin-top: 0;">Thank you for purchasing a new membership!</h2>
+
+    <p>Your membership details are as follows:</p>
+
+    <ul style="list-style-type: none; margin: 0; padding: 0;">
+      <li><strong>Start date:</strong> {{ start_date }}</li>
+      <li><strong>Expiration date:</strong> {{ expiration_date }}</li>
+    </ul>
+
+    <p style="margin-top: 20px;">If you have any questions or concerns about your membership, please don't hesitate to contact us</p>
+
+  </div>
+{% endblock %}
