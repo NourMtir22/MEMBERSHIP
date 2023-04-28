@@ -67,6 +67,7 @@ private $type;
     private $dateexpiration;
 
     // ...
+   
 
     /**
      * @var int|null

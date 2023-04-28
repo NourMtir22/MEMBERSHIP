@@ -3,6 +3,19 @@
 {% block title %}membership{% endblock %}
 
 {% block body %}
+    {# Add these lines to display success and error messages #}
+    {% if success %}
+        <div class="alert alert-success">
+            You bought a new membership! and your new token balance is: {{ highscores.score }} $
+        </div>
+    {% endif %}
+
+    {% if error %}
+        <div class="alert alert-danger">
+            You cannot buy this abonnement because your highscore is too low.
+        </div>
+    {% endif %}
+
     <br>
     <br>
     <br>
@@ -50,14 +63,5 @@
     </section><!-- End Portfolio Details Section -->
 
     </main><!-- End #main -->
-    {# Check if the "success" query parameter is present and equals "true" #}
-{% if app.request.query.get('success') == '1' %}
-<script>
-    // Display an alert with a message
-    alert('Your membership has been created successfully!');
-</script>
-{% endif %}
 
-
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 {% endblock %}

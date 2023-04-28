@@ -14,6 +14,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mailer\Bridge\Google\Transport\GmailSmtpTransport;
+use Symfony\Component\Mailer\MailerInterface;
+
 
 
 #[Route('/abonnement')]
@@ -46,6 +51,14 @@ class AbonnementController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $abonnement = new Abonnement();
+           // Set the dateAchat and dateExpiration attributes
+    $today = new \DateTime('today');
+    $dateExpiration = clone $today;
+    $dateExpiration->modify('+1 year');
+
+    $abonnement->setDateachat($today);
+    $abonnement->setDateexpiration($dateExpiration);
+
         $form = $this->createForm(AbonnementType::class, $abonnement);
         $form->handleRequest($request);
     
@@ -57,7 +70,7 @@ class AbonnementController extends AbstractController
     
             $entityManager->flush();
     
-            $abonnement->setDateachat(new \DateTime());
+          
 
             // Create a new Cartefidelite for the new Abonnement
             $cartefidelite = new Cartefidelite();
@@ -80,60 +93,88 @@ class AbonnementController extends AbstractController
             'form' => $form,
         ]);
     }
-    
     #[Route('/newC', name: 'app_abonnement_newC', methods: ['GET', 'POST'])]
-    public function newC(Request $request, EntityManagerInterface $entityManager): Response
-    {
+public function newC(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
+{
         $abonnement = new Abonnement();
+         // Set the dateAchat and dateExpiration attributes
+    $today = new \DateTime('today');
+    $dateExpiration = clone $today;
+    $dateExpiration->modify('+1 year');
+
+    $abonnement->setDateachat($today);
+    $abonnement->setDateexpiration($dateExpiration);
+
+    $form = $this->createForm(AbonnementType::class, $abonnement);
+    $form->handleRequest($request);
         $form = $this->createForm(AbonnementType::class, $abonnement);
         $form->handleRequest($request);
     
-        // Add the logic to fetch the highest score
         $highscores = $entityManager
             ->getRepository(Highscores::class)
             ->createQueryBuilder('h')
             ->select('h')
-            ->orderBy('h.score', 'DESC')
+            ->orderBy('h.ids', 'DESC')
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
     
+        $success = false;
+        $error = false;
+    
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($abonnement);
+            if ($abonnement->getPrix() < $highscores->getScore()) {
+                
     
-            
-            
+                
     
-            $entityManager->flush();
-         
-            $abonnement->setDateachat(new \DateTime());
+                // Create a new Cartefidelite for the new Abonnement
+                $cartefidelite = new Cartefidelite();
+                $cartefidelite->setAbonnement($abonnement);
+    
+                // Set the required properties for Cartefidelite object
+                $cartefidelite->setPointmerci("0");
+                $cartefidelite->setDateexpiration($abonnement->getDateexpiration());
+    
+                // Persist and flush the Cartefidelite object
+                $entityManager->persist($cartefidelite);
+                $entityManager->flush();
+    
+                // Subtract the price of the membership from the highest score
+                $highscores->setScore($highscores->getScore() - $abonnement->getPrix());
+                $entityManager->flush();
+    
 
-            // Create a new Cartefidelite for the new Abonnement
-            $cartefidelite = new Cartefidelite();
-            $cartefidelite->setAbonnement($abonnement);
-    
-            // Set the required properties for Cartefidelite object
-            $cartefidelite->setPointmerci("0"); // You can set a default value or calculate it based on your business logic
-            $cartefidelite->setDateexpiration($abonnement->getDateexpiration());
-          
-    
-            // Persist and flush the Cartefidelite object
-            $entityManager->persist($cartefidelite);
-            $entityManager->flush();
+                 // Create an email message object
+    $email = (new Email())
+    ->from('symfonycopte822@gmail.com')
+    ->to('accessoriesnova9300@gmail.com')
+    ->subject('Your new membership')
+    ->html('<p>Thank you for purchasing a new membership!</p><p>Your membership details are as follows:</p><ul><li>Start date: ' . $abonnement->getDateachat()->format('Y-m-d') . '</li><li>Expiration date: ' . $abonnement->getDateexpiration()->format('Y-m-d') . '</li></ul>');
 
-            // Add a query parameter called "success" to the URL when redirecting after a successful creation
-                 return $this->redirectToRoute('app_abonnement_newC', ['success' => true], Response::HTTP_SEE_OTHER);
+    $transport = new GmailSmtpTransport('symfonycopte822@gmail.com', 'cdwgdrevbdoupxhn');
+            $mailer = new Mailer($transport);
+    $mailer->send($email);
 
-           
+
+    $success = true;
+   
+
+
+            } else {
+                $error = true;
+            }
         }
     
         return $this->renderForm('abonnement/newC.html.twig', [
             'abonnement' => $abonnement,
             'form' => $form,
-            'highscores' => $highscores, // Pass the 'highscore' variable to the template
+            'highscores' => $highscores,
+            'success' => $success,
+            'error' => $error,
         ]);
     }
-
+    
 
     #[Route('/{ida}', name: 'app_abonnement_show', methods: ['GET'])]
     public function show(Abonnement $abonnement): Response
