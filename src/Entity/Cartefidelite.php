@@ -4,6 +4,9 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+// Add the use statement for the Range constraint
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;  
 /**
  * Cartefidelite
  *
@@ -25,7 +28,10 @@ class Cartefidelite
      * @var string
      *
      * @ORM\Column(name="pointMerci", type="string", length=255, nullable=false)
+     * 
+     * * @Assert\NotBlank(message="Point merci cannot be empty.")
      */
+     
     private $pointmerci;
 
     /**
