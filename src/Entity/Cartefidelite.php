@@ -7,52 +7,28 @@ use Doctrine\ORM\Mapping as ORM;
 // Add the use statement for the Range constraint
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;  
-/**
- * Cartefidelite
- *
- * @ORM\Table(name="cartefidelite")
- * @ORM\Entity
- */
+use ApiPlatform\Core\Annotation\ApiResource;
+
+#[ApiResource]
+#[ORM\Table(name: "cartefidelite")]
+#[ORM\Entity]
 class Cartefidelite
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id_cf", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idCf;
+    #[ORM\Column(name: "id_cf", type: "integer", nullable: false)]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: "IDENTITY")]
+    private int $idCf;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="pointMerci", type="string", length=255, nullable=false)
-     * 
-     * * @Assert\NotBlank(message="Point merci cannot be empty.")
-     */
-     
-    private $pointmerci;
+    #[ORM\Column(name: "pointMerci", type: "string", length: 255, nullable: false)]
+    #[Assert\NotBlank(message: "Point merci cannot be empty.")]
+    private string $pointmerci;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="dateExpiration", type="date", nullable=false)
-     */
-    private $dateexpiration;
+    #[ORM\Column(name: "dateExpiration", type: "date", nullable: false)]
+    private \DateTimeInterface $dateexpiration;
 
-    /**
-     * @var int|null
-     *
-     * @ORM\Column(name="id_user", type="integer", nullable=true)
-     */
-    public $idUser;
-
-    /**
-     * @ORM\OneToOne(targetEntity="Abonnement", inversedBy="cartefidelite", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="idA", referencedColumnName="idA")
-     */
-    private $abonnement;
+    #[ORM\OneToOne(targetEntity: "Abonnement", inversedBy: "cartefidelite", cascade: ["persist", "remove"])]
+    #[ORM\JoinColumn(name: "idA", referencedColumnName: "idA")]
+    private ?Abonnement $abonnement;
 
     public function getAbonnement(): ?Abonnement
     {

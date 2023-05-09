@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 
-class HomeController extends AbstractController
+class HomeControllerNour extends AbstractController
 {
     /**
      * @Route("/", name="home")
@@ -16,4 +16,3 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig');
     }
 }
-

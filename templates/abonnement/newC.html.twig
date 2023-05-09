@@ -32,7 +32,7 @@
                                       {% if highscores %}
                                     <p>
                                         <i class="bi bi-wallet2"></i><br>   Your wallet Balance is: {{ highscores.score }} $
-                                        <!-- by user {{ highscores.idUser }}-->
+                                       
                                     </p>
                                 {% else %}
                                     <p>
@@ -68,10 +68,13 @@
                                 
                               
                                 <center>
-                             
-                               <div class="form-group">
-                                    {{ include('abonnement/_form.html.twig') }}
-                              </div>   
+                                <div class="membership-card">
+  
+
+                         <div class="form-group">
+
+    {{ include('abonnement/_form.html.twig') }}
+</div>
 {% if success %}
         <div class="alert alert-success">
             You bought a new membership! and your new token balance is: {{ highscores.score }} $
@@ -104,6 +107,6 @@
                 </section><!-- End Contact Section -->
 
     </main><!-- End #main -->
-    
+
 
 {% endblock %}

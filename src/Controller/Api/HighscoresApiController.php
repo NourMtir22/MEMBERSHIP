@@ -20,8 +20,7 @@ class HighscoresApiController extends AbstractController
 
         $highscore = new Highscores();
         $highscore->setScore($data['score']);
-        $highscore->setIdUser($data['id_user']);
-
+      
         $entityManager->persist($highscore);
         $entityManager->flush();
 

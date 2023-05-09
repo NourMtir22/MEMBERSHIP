@@ -5,3 +5,7 @@ api_highscores_create:
     path: /api/highscores
     controller: App\Controller\Api\HighscoresApiController::create
     methods: [POST]
+app_abonnement_new:
+    path: /abonnement/new
+    methods: [POST]
+    controller: App\Controller\AbonnementController::new

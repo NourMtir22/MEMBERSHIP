@@ -4,37 +4,17 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Highscores
- *
- * @ORM\Table(name="highscores")
- * @ORM\Entity
- */
+#[ORM\Table(name: "highscores")]
+#[ORM\Entity]
 class Highscores
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="idS", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $ids;
+    #[ORM\Column(name: 'idS', type: 'integer', nullable: false)]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    private int $ids;
 
-    /**
-     * @var int|null
-     *
-     * @ORM\Column(name="score", type="integer", nullable=true)
-     */
-    private $score;
-
-    /**
-     * @var int|null
-     *
-     * @ORM\Column(name="id_user", type="integer", nullable=true)
-     */
-    private $idUser;
-
+    #[ORM\Column(name: 'score', type: 'integer', nullable: true)]
+    private ?int $score;
     public function getIds(): ?int
     {
         return $this->ids;
@@ -51,16 +31,7 @@ class Highscores
         return $this;
     }
 
-    public function getIdUser(): ?int
-    {
-        return $this->idUser;
-    }
-
-    public function setIdUser(?int $idUser): self
-    {
-        $this->idUser = $idUser;
-        return $this;
-    }
+    
     public function setIds(?int $ids): self
     {
         $this->ids = $ids;
